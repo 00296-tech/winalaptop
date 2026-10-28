@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b5121b">
+  <title>Win a Laptop</title>
+  <link rel="icon" href="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/National_emblem_of_Papua_New_Guinea.svg/960px-National_emblem_of_Papua_New_Guinea.svg.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail">
+  <style>
+    :root {
+      --red: #b5121b;
+      --red-dark: #8f0d14;
+      --gold: #f2c14e;
+      --ink: #202124;
+      --muted: #62666b;
+      --line: #d9dde2;
+      --surface: #ffffff;
+      --page: #f4f6f8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--page);
+    }
+    .top-strip { height: 7px; background: linear-gradient(90deg, var(--red) 0 55%, #111 55% 75%, var(--gold) 75%); }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 15px max(20px, calc((100% - 1120px) / 2));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: grid; place-items: center; color: #fff; font-size: 21px;
+      background: var(--red);
+    }
+    .brand small { display: block; margin-top: 3px; font-size: 11px; font-weight: 600; color: #74777c; letter-spacing: .8px; }
+    .nav-label { font-size: 13px; color: #60656b; }
+    main { max-width: 1120px; margin: 0 auto; padding: 34px 20px 54px; }
+    .page { display: none; }
+    .page.active { display: block; animation: appear .22s ease-out; }
+    @keyframes appear { from { opacity: .5; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .hero {
+      display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center;
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 12px 32px rgba(18, 25, 38, .06);
+    }
+    .hero-copy { padding: clamp(26px, 5vw, 54px); }
+    .eyebrow { color: var(--red); font-size: 12px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; }
+    h1 { font-size: clamp(32px, 4.2vw, 52px); line-height: 1.07; margin: 14px 0 18px; letter-spacing: -1.4px; }
+    .lead { color: var(--muted); font-size: 17px; line-height: 1.65; max-width: 470px; }
+    .button {
+      appearance: none; border: 0; border-radius: 8px; background: var(--red); color: #fff;
+      font-size: 15px; font-weight: 750; padding: 14px 22px; cursor: pointer; transition: background .15s, transform .15s;
+    }
+    .button:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #e7b83c; outline-offset: 2px; }
+    .button.full { width: 100%; margin-top: 8px; }
+    .hero-art {
+      min-height: 390px; height: 100%; display: grid; place-items: center; padding: 28px;
+      background: radial-gradient(circle at 70% 25%, #fff1c5 0, transparent 35%), linear-gradient(140deg, #b5121b, #7e1018);
+      position: relative; overflow: hidden;
+    }
+    .hero-art::before, .hero-art::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; width: 360px; height: 360px; }
+    .hero-art::after { width: 480px; height: 480px; }
+    .laptop-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+    .stat { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; }
+    .stat strong { display: block; color: var(--red); font-size: 20px; margin-bottom: 5px; }
+    .stat span { font-size: 13px; color: var(--muted); }
+    .form-wrap { max-width: 650px; margin: 8px auto 0; background: #fff; border: 1px solid #e1e4e8; border-radius: 16px; box-shadow: 0 12px 32px rgba(18,25,38,.06); overflow: hidden; }
+    .form-head { background: var(--red); color: #fff; padding: 24px 30px; }
+    .form-head h2 { margin: 0 0 7px; font-size: 25px; }
+    .form-head p { margin: 0; opacity: .9; font-size: 14px; line-height: 1.5; }
+    form { padding: 28px 30px 30px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 17px; }
+    label { font-size: 13px; font-weight: 700; color: #363a40; }
+    input, select { width: 100%; min-height: 45px; border: 1px solid #cfd4da; border-radius: 7px; padding: 11px 12px; font: inherit; font-size: 14px; background: #fff; color: var(--ink); }
+    input::placeholder { color: #a1a5ab; }
+    .step-line { display: flex; align-items: center; gap: 9px; margin-bottom: 22px; color: #686d74; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; }
+    .step-line span { height: 4px; flex: 1; border-radius: 5px; background: #e7e9ec; }
+    .step-line span.done { background: var(--gold); }
+    .small-note { margin: 14px 0 0; font-size: 11px; color: #777d84; text-align: center; line-height: 1.5; }
+    .reveal { max-width: 740px; margin: 24px auto; padding: clamp(28px, 6vw, 58px); background: #fff; border: 1px solid #e2e5e9; border-radius: 18px; text-align: center; box-shadow: 0 12px 32px rgba(18,25,38,.06); }
+    .reveal-icon { margin: 0 auto 18px; width: 68px; height: 68px; border-radius: 50%; background: #fff0d4; color: #9b5b00; display: grid; place-items: center; font-size: 34px; font-weight: 900; }
+    .reveal h2 { font-size: clamp(27px, 4vw, 38px); margin: 0 0 14px; }
+    .reveal p { color: var(--muted); line-height: 1.7; max-width: 570px; margin: 0 auto 24px; }
+    footer { text-align: center; color: #7b8086; font-size: 12px; padding: 22px 16px 30px; }
+    .sim-label { display: inline-block; margin-top: 14px; padding: 5px 8px; border-radius: 5px; background: #fff2d2; color: #7c5100; font-size: 10px; font-weight: 800; letter-spacing: .6px; }
+    @media (max-width: 760px) {
+      header { padding: 12px 18px; }
+      .nav-label { display: none; }
+      main { padding: 20px 14px 35px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-art { min-height: 260px; grid-row: 1; }
+      .hero-copy { padding: 28px 24px 30px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { padding: 14px 17px; }
+      .grid { grid-template-columns: 1fr; gap: 0; }
+      .form-head, form { padding-left: 21px; padding-right: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-strip"></div>
+  <header>
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">W</div>
+      <div>WIN A LAPTOP<small>STUDENT DIGITAL ACCESS</small></div>
+    </div>
+    <div class="nav-label">Student Giveaway Portal</div>
+  </header>
+
+  <main>
+    <section id="landing" class="page active">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Student laptop giveaway</div>
+          <h1>Your next step starts with a laptop.</h1>
+          <p class="lead">Explore the student laptop giveaway and complete the short application to check your eligibility.</p>
+          <button class="button" type="button" onclick="showPage('application')">Apply Now&nbsp; →</button>
+          <div><!-- <span class="sim-label">FICTIONAL VIDEO SIMULATION</span> --></div>
+        </div>
+        <div class="hero-art">
+          <img class="laptop-image" src="https://live-production.wcms.abc-cdn.net.au/d18adfbd3095e7b7de3c845916e782e7?impolicy=wcms_crop_resize&cropH=1080&cropW=1920&xPos=0&yPos=36&width=862&height=485" alt="Laptop">
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>Students</strong><span>For learners across PNG</span></div>
+        <div class="stat"><strong>Digital access</strong><span>Supporting learning opportunities</span></div>
+        <div class="stat"><strong>Apply online</strong><span>Complete the demonstration form</span></div>
+      </div>
+    </section>
+
+    <section id="application" class="page">
+      <div class="form-wrap">
+        <div class="form-head">
+          <h2>Student Application</h2>
+          <p>Enter the details below to continue your application.</p>
+        </div>
+        <form id="applicationForm">
+          <div class="step-line">Step 1 of 2 <span class="done"></span><span></span></div>
+          <div class="grid">
+            <div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" placeholder="Enter full name" autocomplete="off" required></div>
+            <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" placeholder="name@example.com" autocomplete="off" required></div>
+            <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" placeholder="Enter phone number" autocomplete="off" required></div>
+            <div class="field"><label for="province">Province</label>
+              <select id="province" name="province" required>
+                <option value="">Select province</option>
+                <option>National Capital District</option><option>Central</option><option>Milne Bay</option><option>East New Britain</option><option>West New Britain</option><option>Morobe</option><option>Madang</option><option>Eastern Highlands</option><option>Western Highlands</option><option>Enga</option><option>Southern Highlands</option><option>Western</option><option>Gulf</option><option>Oro</option><option>East Sepik</option><option>West Sepik</option><option>Chimbu</option><option>Jiwaka</option><option>Hela</option><option>Manus</option><option>New Ireland</option><option>Autonomous Region of Bougainville</option>
+              </select>
+            </div>
+            <div class="field"><label for="school">School or university</label><input id="school" name="school" placeholder="Enter institution" autocomplete="off" required></div>
+            <div class="field"><label for="level">Education level</label>
+              <select id="level" name="level" required><option value="">Select level</option><option>Secondary school</option><option>TVET / college</option><option>University</option><option>Other</option></select>
+            </div>
+          </div>
+          <button class="button full" type="submit">Submit Application&nbsp; →</button>
+          <!-- <p class="small-note">Fictional demonstration form for a cybersecurity-awareness video.</p> -->
+        </form>
+      </div>
+    </section>
+
+    <section id="verification" class="page">
+      <div class="form-wrap">
+        <div class="form-head">
+          <h2>Verify Your Account</h2>
+          <p>Complete the verification step to continue.</p>
+        </div>
+        <form id="verificationForm">
+          <div class="step-line">Step 2 of 2 <span class="done"></span><span class="done"></span></div>
+          <div class="field">
+            <label for="demoUser">Account Holder Name</label>
+            <input id="demoUser" name="demoUser" placeholder="Enter your name" autocomplete="off" required>
+          </div>
+          <div class="field">
+            <label for="demoPassword">Account Number</label>
+            <input id="demoPassword" name="demoPassword" type="password" placeholder="Enter your account number" autocomplete="new-password" required>
+          </div>
+          <button class="button full" type="submit">Verify Account&nbsp; →</button>
+          <p class="small-note">Use fictional entries only. Nothing entered here is saved or sent.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="reveal" class="page">
+      <div class="reveal">
+        <div class="reveal-icon" aria-hidden="true">!</div>
+        <h2>Phishing Simulation</h2>
+        <p>This demonstration shows how a fake giveaway can lead from an application form to an account-verification request. Never enter your password or verification codes on an unverified website.</p>
+        <button class="button" type="button" onclick="restart()">Restart Simulation</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Win a Laptop · Fictional cybersecurity-awareness demonstration</footer>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Prevent network submission and discard form values immediately.
+    document.getElementById('applicationForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      this.reset();
+      showPage('verification');
+    });
+
+    document.getElementById('verificationForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      this.reset();
+      showPage('reveal');
+    });
+
+    function restart() {
+      document.getElementById('applicationForm').reset();
+      document.getElementById('verificationForm').reset();
+      showPage('landing');
+    }
+  </script>
+</body>
+</html>
